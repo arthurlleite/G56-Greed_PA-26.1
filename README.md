@@ -241,10 +241,10 @@ O gargalo é a ordenação. Para `n` tarefas, o algoritmo é eficiente mesmo par
 
 ## Vídeo de apresentação
 
-> Substitua `ID_DO_VIDEO` pelo ID do vídeo publicado no YouTube.
+[![Mãe Solo — Rotina Sem Atrasos | Projeto FGA](https://img.youtube.com/vi/Mw2zfIM9VF8/maxresdefault.jpg)](https://www.youtube.com/watch?v=Mw2zfIM9VF8)
 
-[![Assista ao vídeo](https://img.youtube.com/vi/ID_DO_VIDEO/0.jpg)](https://www.youtube.com/watch?v=ID_DO_VIDEO)
-
+> Clique na imagem acima para assistir ao vídeo de apresentação no YouTube.
+>
 > **Nota:** O GitHub não renderiza `<iframe>` diretamente em Markdown. A forma mais segura e compatível é usar uma imagem clicável que redireciona para o YouTube, como mostrado acima.
 
 ---
