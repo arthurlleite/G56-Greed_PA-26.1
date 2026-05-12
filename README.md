@@ -137,29 +137,92 @@ Na correria da manhã, mesmo com o EDD organizando da melhor forma possível, a 
 
 ![Cronograma de Gantt](cronograma.png)
 
+---
+
 ### Como ler o gráfico
 
-Cada linha representa uma tarefa, ordenada pelo menor prazo (EDD). O eixo horizontal é o horário real do dia (HH:MM).
+O gráfico é um **diagrama de Gantt** — uma ferramenta clássica de gestão de tarefas adaptada aqui para visualizar o algoritmo EDD. Veja cada elemento:
 
-| Elemento | Significado |
+#### Eixos
+
+- **Eixo vertical (Y):** lista as 20 tarefas na ordem em que o algoritmo as executa — do menor prazo (topo) para o maior prazo (base). Essa é exatamente a ordenação EDD.
+- **Eixo horizontal (X):** representa o horário real do dia, de **06:00** (quando a mãe acorda) até aproximadamente **17:10** (quando termina a última tarefa).
+
+#### Legenda
+
+| Elemento visual | O que representa |
 |---|---|
-| Barra **verde** | A tarefa foi executada dentro do prazo |
-| Barra **vermelha** | A parte da execução que ultrapassou o prazo |
-| Seta **laranja** | O prazo (deadline) daquela tarefa |
-| **+Xmin** à direita | Quantidade de atraso em minutos |
+| Barra **verde** | A tarefa foi executada inteiramente dentro do prazo |
+| Barra **vermelha** | A parte da execução que ultrapassou o prazo — é o atraso visível |
+| Barra **verde + vermelha** | A tarefa começou no prazo mas terminou depois — a divisão mostra exatamente onde o prazo foi cruzado |
+| **Seta laranja** (▼) | O deadline daquela tarefa — o momento em que ela deveria estar concluída |
+| **+Xmin** à direita | A quantidade de atraso em minutos daquela tarefa |
+| Horário dentro da barra | O horário de término real da tarefa |
 
-**Lendo o cronograma da manhã (o trecho mais crítico):**
+---
 
-As 5 primeiras tarefas (acordar, banho, café, mochila) terminam no prazo — as barras são totalmente verdes. O problema começa na tarefa **6 (Se arrumar)**: ela devia terminar às 07:20, mas termina às 07:25 — **5 minutos de atraso**. Esse pequeno atraso se propaga em cascata:
+### Leitura tarefa por tarefa
 
-- **Tarefa 7 — Levar crianças na escola:** começa atrasada (07:25 em vez de 07:00) e termina às 07:50. A escola esperava às **07:30** → **20 minutos de atraso** (o maior do dia).
-- **Tarefa 8 — Ir para o trabalho:** começa às 07:50 e termina às 08:10. O horário era **08:00** → **10 minutos de atraso**.
+#### Manhã — o período crítico (06:00 às 08:10)
 
-A partir das **08:10**, o algoritmo EDD garante que todas as 12 tarefas restantes sejam concluídas dentro do prazo — as barras voltam a ser completamente verdes até o fim do dia.
+As tarefas da manhã têm prazos muito próximos entre si. Pequenos atrasos se acumulam e criam um efeito cascata:
 
-**Conclusão visual:** o gráfico deixa claro que o EDD minimiza o caos, mas não elimina completamente os atrasos quando o volume de tarefas supera o tempo disponível na janela da manhã. O atraso máximo encontrado é de **20 minutos**.
+| # | Tarefa | Início | Término | Prazo | Situação |
+|---|---|---|---|---|---|
+| 1 | Acordar e levantar | 06:00 | 06:05 | 06:10 | ✅ No prazo |
+| 2 | Acordar as crianças | 06:05 | 06:15 | 06:20 | ✅ No prazo |
+| 3 | Dar banho nas crianças | 06:15 | 06:35 | 06:50 | ✅ No prazo |
+| 4 | Preparar café da manhã | 06:35 | 06:55 | 07:00 | ✅ No prazo |
+| 5 | Arrumar mochila das crianças | 06:55 | 07:05 | 07:10 | ✅ No prazo |
+| 6 | Se arrumar para o trabalho | 07:05 | 07:25 | 07:20 | ⚠️ **+5min de atraso** |
+| 7 | Levar crianças na escola | 07:25 | 07:50 | 07:30 | 🔴 **+20min de atraso** |
+| 8 | Ir para o trabalho | 07:50 | 08:10 | 08:00 | 🔴 **+10min de atraso** |
 
-O arquivo `cronograma.png` é salvo automaticamente na raiz do projeto ao rodar `python visualizar.py`.
+**O que o gráfico mostra aqui:** as tarefas 1 a 5 têm barras totalmente verdes — todas no prazo. Na tarefa 6, a barra é verde até 07:20 (prazo) e vermelha dos 07:20 aos 07:25 — o pequeno trecho vermelho é o atraso de 5 minutos. Como as tarefas são sequenciais, esse atraso empurra tudo que vem depois: as tarefas 7 e 8 já começam atrasadas e suas barras são inteiramente vermelhas.
+
+> O **efeito cascata** fica visível no gráfico: as barras vermelhas surgem exatamente onde o tempo total das tarefas supera a janela disponível da manhã.
+
+#### Trabalho — período estável (08:10 às 14:45)
+
+A partir das 08:10 o dia se estabiliza. As tarefas do trabalho têm prazos mais espaçados, o que dá margem suficiente para executá-las sem atraso:
+
+| # | Tarefa | Término | Prazo | Situação |
+|---|---|---|---|---|
+| 9 | Responder e-mails | 08:40 | 09:00 | ✅ No prazo |
+| 10 | Reunião com a equipe | 09:40 | 10:00 | ✅ No prazo |
+| 11 | Resolver demanda urgente | 10:20 | 11:00 | ✅ No prazo |
+| 12 | Concluir relatório da manhã | 11:20 | 12:00 | ✅ No prazo |
+| 13 | Almoço rápido | 11:45 | 12:35 | ✅ No prazo |
+| 14 | Pagar conta urgente | 11:55 | 13:00 | ✅ No prazo |
+| 15 | Entregar relatório ao chefe | 12:45 | 14:30 | ✅ No prazo |
+| 16 | Concluir metas do turno da tarde | 14:45 | 17:30 | ✅ No prazo |
+
+**O que o gráfico mostra aqui:** todas as barras são totalmente verdes. As setas laranjas estão sempre à direita do término das barras — isso confirma que cada tarefa termina antes do seu prazo. Note que a tarefa 16 (concluir metas da tarde) tem a barra mais longa do gráfico, representando 2 horas de trabalho contínuo, mas ainda assim termina às 14:45 — bem antes do prazo das 17:30.
+
+#### Tarde e noite — conforto total (14:45 às 17:10)
+
+As tarefas após o trabalho têm bastante folga, pois a mãe termina suas obrigações profissionais cedo:
+
+| # | Tarefa | Término | Prazo | Situação |
+|---|---|---|---|---|
+| 17 | Buscar crianças na escola | 15:05 | 18:00 | ✅ No prazo |
+| 18 | Fazer compras no mercado | 15:40 | 19:00 | ✅ No prazo |
+| 19 | Preparar jantar | 16:20 | 19:30 | ✅ No prazo |
+| 20 | Ajudar nas lições e colocar para dormir | 17:10 | 21:00 | ✅ No prazo |
+
+**O que o gráfico mostra aqui:** as barras da tarde são verdes e curtas em relação ao espaço disponível — há folga visível entre o término de cada barra e a seta laranja do prazo correspondente. Isso mostra que o algoritmo EDD conseguiu "salvar" o resto do dia, mesmo com os atrasos da manhã.
+
+---
+
+### Conclusão do gráfico
+
+O gráfico deixa três mensagens claras:
+
+1. **O gargalo é a manhã.** Toda a zona vermelha se concentra entre 06:00 e 08:10. Fora desse intervalo, nenhuma tarefa atrasa.
+2. **O efeito cascata é real.** Um atraso de apenas 5 minutos em uma tarefa pode se propagar e virar 20 minutos de atraso na tarefa seguinte.
+3. **O EDD é ótimo.** Nenhuma outra ordem de execução produziria um atraso máximo menor que **20 minutos**. O algoritmo garante isso matematicamente.
+
+O arquivo `cronograma.png` é gerado e salvo automaticamente ao rodar `python visualizar.py`.
 
 ---
 
