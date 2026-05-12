@@ -1,0 +1,21 @@
+id,nome,duracao,prazo
+1,Acordar e levantar,5,10
+2,Acordar as criancas,10,20
+3,Dar banho nas criancas,20,50
+4,Preparar cafe da manha,20,60
+5,Arrumar mochila das criancas,10,70
+6,Se arrumar para o trabalho,20,80
+7,Levar criancas na escola,25,90
+8,Ir para o trabalho,20,120
+9,Responder e-mails do trabalho,30,180
+10,Reuniao com a equipe,60,240
+11,Resolver demanda urgente do cliente,40,300
+12,Concluir relatorio da manha,60,360
+13,Almoco rapido,25,395
+14,Pagar conta urgente pelo celular,10,420
+15,Entregar relatorio ao chefe,50,510
+16,Concluir metas do turno da tarde,120,690
+17,Buscar criancas na escola,20,720
+18,Fazer compras no mercado,35,780
+19,Preparar jantar,40,810
+20,Ajudar nas licoes de casa e colocar para dormir,50,900
