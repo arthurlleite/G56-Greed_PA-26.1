@@ -186,6 +186,10 @@ O gargalo é a ordenação. Para `n` tarefas, o algoritmo é eficiente mesmo par
 
 ---
 
-## Autores
+## Autor
+
+| Nome | Matrícula |
+|---|---|
+| Arthur Carvalho Leite | 222037595 |
 
 Projeto desenvolvido para a disciplina **Projeto de Algoritmos**.
